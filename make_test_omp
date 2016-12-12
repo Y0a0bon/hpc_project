@@ -1,0 +1,16 @@
+#!/bin/bash
+
+for((n = 1 ; n<= 8; n=n*2))
+do
+    echo "Nb de ps n: "$n
+    echo "export OMP_NUM_THREAD="$((8/$n))
+    for((t = 100; t <= 300; t=t+100))
+    do
+	echo "Pas de temps t: "$t
+	for((var = 1; var <= 10; var++))
+	do
+	    mpirun -npernode $n ./bin/shalw -x 128 -y 128 -t $t >> stats_128_omp.txt
+	    mpirun -npernode $n ./bin/shalw -x 512 -y 512 -t $t >> stats_512_omp.txt
+	done
+    done
+done

@@ -1,0 +1,14 @@
+#!/bin/bash
+echo "export OMP_NUM_THREAD=4"
+
+for((t = 200; t <= 600; t=t+200))
+do
+    echo "Pas de temps t: "$t
+    for((var = 1; var <= 20; var++))
+    do
+	mpirun -n 2 ./bin/shalw -x 128 -y 128 -t $t >> stats_128_opt.txt
+	mpirun -n 2 ./bin/shalw -x 512 -y 512 -t $t >> stats_512_opt.txt
+    done
+done
+
+
